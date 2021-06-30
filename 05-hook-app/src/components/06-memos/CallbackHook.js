@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useCallback, useEffect} from 'react';
 import { ShowIncrement } from './ShowIncrement';
 import '../02-useEffect/effects.css';
 
