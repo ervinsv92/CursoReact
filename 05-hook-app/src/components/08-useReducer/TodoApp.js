@@ -16,10 +16,21 @@ export const TodoApp = () => {
         description:''
     });
 
+    //Se ejecuta cuando cambia el valor de un estado
     useEffect(() => {
         localStorage.setItem('todos', JSON.stringify(todos));
-        
     }, [todos]);
+
+    const handleDelete = (todoId) =>{
+        //e.preventDefault();
+        const action = {
+            type: 'delete',
+            payload: todoId
+        };
+
+        //Manda la accion al reducer
+        dispatch(action);
+    }
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -39,6 +50,7 @@ export const TodoApp = () => {
             payload: newTodo
         };
 
+        //Manda la accion al reducer
         dispatch(action);
         reset();
     }
@@ -58,7 +70,7 @@ export const TodoApp = () => {
                                         className="list-group-item"
                                     >
                                     <p className="text-center">{i+1}. {todo.desc}</p>
-                                    <button type="button" className="btn btn-danger">Borrar</button>
+                                    <button type="button" className="btn btn-danger" onClick={() => handleDelete(todo.id)}>Borrar</button>
                                     </li>
                     })
                 }
