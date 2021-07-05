@@ -1,7 +1,8 @@
-import React, {useReducer, useEffect} from 'react'
+import React, {useReducer, useEffect, useCallback} from 'react'
 import './styles.css';
 import { todoReducer } from './todoReducer';
 import {useForm} from '../../hooks/useForm';
+import { TodoList } from './TodoList';
 
 const init = ()=>{
     return JSON.parse(localStorage.getItem('todos')) || [];
@@ -21,6 +22,7 @@ export const TodoApp = () => {
         localStorage.setItem('todos', JSON.stringify(todos));
     }, [todos]);
 
+    /*
     const handleDelete = (todoId) =>{
         //e.preventDefault();
         const action = {
@@ -30,15 +32,16 @@ export const TodoApp = () => {
 
         //Manda la accion al reducer
         dispatch(action);
-    }
+    }*/
 
+    /*
     const handleToggle = (todoId) => {
         dispatch({
             type:'toggle',
             payload:todoId
         });
     }
-
+*/
     const handleSubmit = (e) => {
         e.preventDefault();
 
@@ -62,6 +65,28 @@ export const TodoApp = () => {
         reset();
     }
 
+    //para el ejemplo no es necesario utilizar el callback, con solo pasar una funcion normal sirve
+    const handleToggle = useCallback(
+        (todoId) => {
+            dispatch({
+                type:'toggle',
+                payload:todoId
+            });
+        },
+        [dispatch],
+    );
+
+    const handleDelete = useCallback(
+        (todoId) => {
+            const action = {
+                type: 'delete',
+                payload: todoId
+            };
+            dispatch(action);
+        },
+        [dispatch],
+    )
+
     return (
         <div>
             <h1>TodoApp ({todos.length})</h1>
@@ -69,22 +94,7 @@ export const TodoApp = () => {
 
             <div className="row">
                 <div className="col-7">
-                    <ul className="list-group list-group-flush">
-                {
-                    todos.map((todo, i) => {
-                        return   <li 
-                                        key={todo.id}
-                                        className="list-group-item"
-                                    >
-                                    <p 
-                                        className={`${todo.done && 'complete'}`}
-                                        onClick={() => handleToggle(todo.id)}
-                                    >{i+1}. {todo.desc}</p>
-                                    <button type="button" className="btn btn-danger" onClick={() => handleDelete(todo.id)}>Borrar</button>
-                                    </li>
-                    })
-                }
-                </ul>
+                <TodoList todos={todos} handleDelete={handleDelete} handleToggle={handleToggle}></TodoList>
                 </div>
                 <div className="col-5">
                     <h4>Agregar TODO</h4>
