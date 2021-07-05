@@ -1,17 +1,47 @@
-import React, {useReducer} from 'react'
+import React, {useReducer, useEffect} from 'react'
 import './styles.css';
 import { todoReducer } from './todoReducer';
+import {useForm} from '../../hooks/useForm';
 
-const initialState = [{
-    id: new Date().getTime(),
-    desc:'Aprender React',
-    done:false
-}];
+const init = ()=>{
+    return JSON.parse(localStorage.getItem('todos')) || [];
+}
 
 export const TodoApp = () => {
 
     //const [todos], se hace con destructuracion de arreglos, por lo tanto todo puede ser cualquier nombre
-    const [todos] = useReducer(todoReducer, initialState);
+    const [todos, dispatch] = useReducer(todoReducer, [], init);
+
+    const [{description}, handleInputChange, reset] = useForm({
+        description:''
+    });
+
+    useEffect(() => {
+        localStorage.setItem('todos', JSON.stringify(todos));
+        
+    }, [todos]);
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+
+        if(description.trim().length <= 1){
+            return;
+        }
+
+        const newTodo = {
+            id: new Date().getTime(),
+            desc:description,
+            done:false
+        };
+
+        const action = {
+            type: 'add',
+            payload: newTodo
+        };
+
+        dispatch(action);
+        reset();
+    }
 
     return (
         <div>
@@ -37,9 +67,12 @@ export const TodoApp = () => {
                 <div className="col-5">
                     <h4>Agregar TODO</h4>
                     <hr></hr>
-                    <form>
-                        <input type="text" name="description" placeholder="Aprender ..." autoComplete="off" className="form-control"/>
-                        <button className="btn btn-outline-primary mt-1 btn-block">Agregar</button>
+                    <form onSubmit={handleSubmit}>
+                        <input type="text" name="description" placeholder="Aprender ..." autoComplete="off" className="form-control" 
+                        onChange={handleInputChange}
+                        value={description}
+                    />
+                        <button className="btn btn-outline-primary mt-1 btn-block" type="submit">Agregar</button>
                     </form>
                 </div>
             </div>
