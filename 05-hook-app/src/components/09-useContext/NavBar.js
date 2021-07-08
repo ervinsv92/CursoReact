@@ -1,8 +1,5 @@
 import React from 'react';
 import { Link, NavLink } from 'react-router-dom';
-import { HomeScreen } from './HomeScreen';
-import { AboutScreen } from './AboutScreen';
-import { LoginScreen } from './LoginScreen';
 
 export const NavBar = () => {
     return (
