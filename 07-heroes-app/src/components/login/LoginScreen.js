@@ -3,7 +3,8 @@ import React from 'react';
 export const LoginScreen = ({history}) => {
 
     const handleLogin = () => {
-        history.replace('/');
+        //history.push("/");//agrega la ruta al historial, permite volver adelante y atras
+        history.replace('/');//sobreescribe la ruta actual, lo que la omite del historial de rutas
     };
 
     return (
