@@ -30,9 +30,11 @@ export const HeroScreen = ({history}) => {
     return (
         <div className="row mt-5">
             <div className="col-4">
-                <img src={`../assets/heroes/${heroId}.jpg`} className="img-thumbnail" alt="superhero" />
+                <img src={`../assets/heroes/${heroId}.jpg`} 
+                    className="img-thumbnail animate_animated animate_fadeInLeft" alt="superhero" 
+                />
             </div>
-            <div className="col-8">
+            <div className="col-8 animate_animated animate_fadeIn">
                 <h3>{superhero}</h3>
                 <ul className="list-group list-group-flush">
                     <li className="list-group-item"><b>Alter ego:</b> {alter_ego}</li>
