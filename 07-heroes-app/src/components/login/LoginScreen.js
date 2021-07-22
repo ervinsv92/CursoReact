@@ -9,6 +9,10 @@ export const LoginScreen = ({history}) => {
     const handleLogin = () => {
         //history.push("/");//agrega la ruta al historial, permite volver adelante y atras
         //history.replace('/');//sobreescribe la ruta actual, lo que la omite del historial de rutas
+
+        const lastPath = localStorage.getItem('lastPath') || '/'
+
+
         dispatch({
             type: types.login,
             payload:{
@@ -16,7 +20,7 @@ export const LoginScreen = ({history}) => {
             }
         });
 
-        history.replace('/');
+        history.replace(lastPath);
     };
 
     return (
