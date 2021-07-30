@@ -5,7 +5,6 @@ import { startNewNote } from '../../actions/notes';
 import { JournalEntries } from './JournalEntries'
 
 export const Sidebar = () => {
-
     const dispatch = useDispatch();
     const {name} = useSelector(state => state.auth)
 
