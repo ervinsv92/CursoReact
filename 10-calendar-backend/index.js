@@ -4,6 +4,8 @@ const {dbConnection} = require('./database/config');
 
 const app = express();
 
+dbConnection();
+
 app.use(express.static('public'));
 
 app.use(express.json());
