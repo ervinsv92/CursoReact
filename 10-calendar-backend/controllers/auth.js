@@ -1,6 +1,7 @@
 const {response} = require('express');
 const bcrypt = require('bcryptjs');
 const Usuario = require('../models/Usuario');
+const {generarJWT} = require('../helpers/jwt');
 
 //express response es para que el intelicense ayude a autocompletar
 const crearUsuario = async (req, res = response) =>{
@@ -33,10 +34,13 @@ const crearUsuario = async (req, res = response) =>{
 
         await usuario.save();
 
+        const token = await generarJWT(usuario.id, usuario.name);
+
         res.status(201).json({
             ok:true,
             uid: usuario.id,
-            name:usuario.name
+            name:usuario.name,
+            token
         });    
     } catch (error) {
         console.log(error)
@@ -72,10 +76,13 @@ const loginUsuario = async (req, res = response) =>{
             });
         }
 
-        res.status(400).json({
-            ok:false,
+        const token = await generarJWT(usuario.id, usuario.name);
+
+        res.status(200).json({
+            ok:true,
             uid:usuario.id,
-            name: usuario.name
+            name: usuario.name,
+            token
         });
     } catch (error) {
         console.log(error)
