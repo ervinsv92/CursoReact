@@ -1,6 +1,6 @@
 const moment = require('moment');
 
-const isDate = (values, {req, location, path})=>{
+const isDate = (value)=>{
     if(!value){
         return false;
     }

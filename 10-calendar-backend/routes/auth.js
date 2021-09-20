@@ -4,11 +4,12 @@
 */
 
 const { Router } = require('express');
-const router = Router();
 const {check} = require('express-validator');
-const { crearUsuario, loginUsuario, revalidarToken } = require('../controllers/auth');
 const { validarCampos } = require('../middlewares/validar-campos');
+const { crearUsuario, loginUsuario, revalidarToken } = require('../controllers/auth');
 const {validarJWT} = require('../middlewares/validar-jwt');
+
+const router = Router();
 
 router.post(
     '/new', 
@@ -19,6 +20,7 @@ router.post(
         validarCampos
     ], 
     crearUsuario);
+    
 router.post('/', 
 [
     check('email', 'El email es obligatorio').isEmail(),

@@ -7,7 +7,7 @@ const app = express();
 
 dbConnection();
 
-app.use(cors);
+app.use(cors());
 
 app.use(express.static('public'));
 
@@ -18,5 +18,5 @@ app.use('/api/auth', require('./routes/auth'));
 app.use('/api/events', require('./routes/events'));
 
 app.listen(process.env.PORT, ()=>{
-    console.log(`Servidor corriendo en el puerto ${process.env.PORT}`)
+    console.log(`Servidor corriendo en el puerto ${process.env.PORT}`);
 });
