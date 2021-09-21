@@ -8,7 +8,7 @@
     "@testing-library/user-event": "^12.8.3",
     "i": "^0.3.6",
     "moment": "^2.29.1",
-    "npm": "^7.20.5",
+    "npm": "^7.24.0",
     "react": "^17.0.2",
     "react-big-calendar": "^0.33.6",
     "react-datetime-picker": "^3.3.0",
